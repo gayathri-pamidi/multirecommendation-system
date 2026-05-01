@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+</head>
+<body>
+    <script>
+        function login(password){
+            return new  (
+                (resolve,reject) =>{
+                    if(password == "Vusec@18"){
+                        resolve("Correct Password");
+                    }else{
+                        reject("User entered a Wrong Password");
+                    }
+                }
+            );
+        }
+        async function trytolog(){          //async is returning a promise value so we are using async;      either resolve or reject
+            try{                            // when async is used await must be used
+              let result = await login("Vusec@18"); //Await until the task is executed ;     It is used to complete task whether to be executed or not ;     Await waits for the promise value to be executed
+              console.log(result);
+            }catch(error){
+                console.error(error);
+            }
+            finally{
+                console.log("login attempted");
+            }
+        }
+        trytolog();
+    </script>
+</body>
+</html>

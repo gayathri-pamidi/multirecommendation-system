@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button id="b1">click me</button>
+
+    <p id = "p1">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam eaque odit facilis perferendis? Rem verita
+        tis quaerat delectus maiores, veniam iusto consequuntur! Quo eveniet non vel vitae consequatur minima dicta 
+        recusandae at earum mollitia, illum dolor totam delectus cumque dolore
+         unde ducimus amet quisquam ullam corrupti placeat commodi, nostrum labore. Doloribus.</p>
+
+    <!--<script>
+        //function fun1(){
+        //console.log("Hello world");
+       // }
+        const fun1 = ()=>{
+            console.log("Hello world");     // if let, var is used it print default values, so function must be declared as const
+        }               //arrow functions are useful in event listeners     
+    </script>-->
+
+
+    <script>
+        document.querySelector("#b1").addEventListener("click",()=>{
+            document.querySelector("#p1").innerHTML = "<h1>You Clicked Me😭👀</h1>";
+        })
+    </script>
+</body>
+</html>

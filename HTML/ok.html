@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Personal Life Coach Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<!-- LANDING PAGE -->
+<div class="landing" id="landing">
+  <h1>✨ Personal Life Coach</h1>
+  <p>Your daily intelligence dashboard</p>
+  <button onclick="startApp()">Get Started</button>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <div class="sidebar">
+    <h3>📂 Menu</h3>
+    <button onclick="showPage('dashboard')">📊 Dashboard</button>
+    <button onclick="showPage('goals')">🎯 Goals</button>
+    <button onclick="showPage('history')">📈 History</button>
+    <button onclick="showPage('settings')">⚙️ Settings</button>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="dashboard">
+      <h2>🌿 Dashboard</h2>
+      <div class="row">
+
+        <div class="card">
+          <h3>👤 Inputs</h3>
+          <input id="name" placeholder="Name">
+          <input id="sleep" type="number" placeholder="Sleep hours">
+          <input id="study" type="number" placeholder="Focus hours">
+          <input id="stress" type="number" placeholder="Stress (0-10)">
+          <select id="mood">
+            <option>Happy</option>
+            <option>Calm</option>
+            <option>Stressed</option>
+            <option>Tired</option>
+          </select>
+          <button onclick="analyze()">Generate Insights</button>
+        </div>
+
+        <div class="card">
+          <h3>⭐ Life Score</h3>
+          <div id="score" style="font-size:40px;">--</div>
+          <div id="streak" style="margin-top:10px;">🔥 Streak: 0 days</div>
+
+          <h4 style="margin-top:10px;">🏅 Badges</h4>
+          <div class="badges">
+            <div id="badge3" class="badge locked">🥉 3 Days</div>
+            <div id="badge7" class="badge locked">🥈 7 Days</div>
+            <div id="badge14" class="badge locked">🥇 14 Days</div>
+            <div id="badge30" class="badge locked">💎 30 Days</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🧠 Insights</h3>
+          <div id="insights">Your personal suggestions will appear here.</div>
+        </div>
+
+        <div class="card">
+          <h3>📊 Performance</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="card">
+          <h3>🥧 Mood Chart</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GOALS PAGE -->
+    <div class="page" id="goals">
+      <h2>🎯 Your Goals</h2>
+      <div class="row">
+        <div class="card">
+          <h3>Set Daily Goals</h3>
+          <input id="sleepGoal" type="number" placeholder="Sleep goal (hrs) e.g. 7">
+          <input id="studyGoal" type="number" placeholder="Study goal (hrs) e.g. 4">
+          <p>Go to dashboard → insights → track progress here ✅</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY PAGE -->
+    <div class="page" id="history">
+      <h2>📈 History</h2>
+      <div class="row">
+        <div class="card">
+          <h3>📊 Score Trend</h3>
+          <canvas id="historyChart"></canvas>
+        </div>
+        <div class="card">
+          <h3>🗂️ Entries</h3>
+          <div class="list" id="historyList">No data yet.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page" id="settings">
+      <h2>⚙️ Settings</h2>
+      <div class="card">
+        <button onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="clearData()">Clear All Data</button>
+        <p>Theme & data controls.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

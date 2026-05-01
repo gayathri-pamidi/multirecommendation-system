@@ -1,0 +1,840 @@
+/* =====================
+   GLOBAL STYLES
+===================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f5f7fb;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =====================
+   NAVBAR
+===================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background: linear-gradient(90deg, #2563eb, #1e40af);
+  color: white;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.add-btn {
+  background: white;
+  color: #1e40af;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-btn:hover {
+  background: #e5e7eb;
+}
+
+/* =====================
+   SEARCH SECTION
+===================== */
+.search-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.search-section h2 {
+  margin-bottom: 15px;
+  font-size: 28px;
+}
+
+.search-section input {
+  width: 90%;
+  max-width: 500px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+/* =====================
+   CATEGORY SECTION (Index)
+===================== */
+.category-list {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 30px;
+}
+
+.category-card {
+  background: #ffffff;
+  width: 160px;              /* fixed size for uniformity */
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  border-radius: 14px;
+  font-weight: bold;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+/* =====================
+   CATEGORY LISTINGS (Restaurants)
+===================== */
+.category-listings {
+  display: flex;
+  justify-content: center;   /* center restaurant cards */
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 30px;
+}
+
+.business-card {
+  background: #fff;
+  width: 250px;              /* consistent size */
+  padding: 20px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.business-card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+}
+
+.business-card h3 {
+  margin: 0 0 10px;
+}
+
+.business-card p {
+  margin: 5px 0;
+  color: #555;
+}
+
+/* =====================
+   BUSINESS DETAIL PAGE
+===================== */
+.business-detail {
+  max-width: 800px;
+  margin: 30px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.business-detail h2 {
+  margin-top: 0;
+}
+
+.business-detail p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+/* Business detail image alignment */
+#businessImage {
+  display: block;
+  margin: 20px auto;       /* centers the image horizontally */
+  max-width: 300px;        /* keeps it neat, not oversized */
+  height: auto;            /* maintains aspect ratio */
+  border-radius: 12px;     /* rounded corners for polish */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.business-card img {
+  width: 100%;
+  height: 150px;             /* fixed height for consistency */
+  object-fit: contain;       /* shrinks image to fit without cropping */
+  border-radius: 10px;
+  margin: 10px 0;
+}
+/* =====================
+   MENU PAGE (Vertical Cards)
+===================== */
+.menu-section {
+  max-width: 900px;
+  margin: 30px auto;
+  background: #611e1e;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.menu-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.menu-card-vertical {
+  display: flex;
+  gap: 20px;
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  align-items: center;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-card-vertical:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.menu-card-vertical img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.menu-card-vertical h4 {
+  margin: 0 0 5px;
+}
+
+.menu-card-vertical p {
+  margin: 4px 0;
+  color: #444;
+}
+
+/* =====================
+   CART SECTION
+===================== */
+#cartSection {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f9fafb;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+#cartSection h3 {
+  margin-top: 0;
+}
+
+#cartList {
+  list-style: none;
+  padding: 0;
+}
+
+#cartList li {
+  margin: 8px 0;
+  padding: 8px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* =====================
+   BUTTONS
+===================== */
+.cart-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cart-btn:hover {
+  background: #1e40af;
+}
+
+/* =====================
+   ADD BUSINESS FORM
+===================== */
+.form-container {
+  max-width: 600px;
+  margin: 30px auto;
+  background: white;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-container input,
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 15px;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background: #1e40af;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu-card-vertical {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .menu-card-vertical img {
+    margin-bottom: 10px;
+  }
+}
+/* =====================
+   NAVBAR - TRICOLOR STYLE
+===================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background: linear-gradient(90deg, #ff6b6b, #fcd34d, #6ee7b7); /* red → yellow → green */
+  color: white;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+  border-radius: 0 0 20px 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+}
+
+.add-btn {
+  background: #1e3a8a; /* deep blue for contrast */
+  color: #fff;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.add-btn:hover {
+  background: #2563eb; /* lighter blue on hover */
+  transform: translateY(-2px);
+}/* =====================
+   GLOBAL STYLES
+===================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', Arial, sans-serif;
+  background: #f0f4f8;  /* soft light background */
+  color: #1f2937;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* =====================
+   NAVBAR
+===================== */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 30px;
+  background: #3b82f6;  /* nice bright blue */
+  color: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 0 0 12px 12px;
+}
+
+.logo {
+  font-size: 26px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.add-btn {
+  background: #10b981; /* bright green button */
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.add-btn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+/* =====================
+   SEARCH SECTION
+===================== */
+.search-section {
+  padding: 50px 20px;
+  text-align: center;
+  background: #e0f2fe; /* soft blue background */
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 900px;
+}
+
+.search-section h2 {
+  font-size: 28px;
+  color: #1e293b;
+  margin-bottom: 20px;
+}
+
+.search-section input {
+  width: 90%;
+  max-width: 500px;
+  padding: 14px 18px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 16px;
+}
+
+.search-section input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+/* =====================
+   CATEGORY SECTION
+===================== */
+.category-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px 10px;
+  background: #236865; /* soft yellow background */
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 1000px;
+}
+
+.category-card {
+  background: #ffffff;
+  width: 160px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 14px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+}
+
+/* =====================
+   BUSINESS LISTINGS
+===================== */
+.category-listings {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: 30px 10px;
+  background: #f0fdf4; /* soft green background */
+  border-radius: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+.business-card {
+  background: #ffffff;
+  width: 250px;
+  padding: 20px;
+  border-radius: 16px;
+  text-align: center;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.business-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 22px rgba(0,0,0,0.15);
+}
+
+.business-card h3 {
+  margin-bottom: 8px;
+  color: #1e293b;
+}
+
+.business-card p {
+  color: #64748b;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.business-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+/* =====================
+   BUSINESS DETAIL
+===================== */
+.business-detail {
+  max-width: 800px;
+  margin: 40px auto;
+  background: #fefefe;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.1);
+}
+
+.business-detail h2 {
+  margin-bottom: 15px;
+  color: #1e293b;
+}
+
+.business-detail p {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 10px;
+}
+
+#businessImage {
+  display: block;
+  margin: 20px auto;
+  max-width: 320px;
+  height: auto;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* =====================
+   MENU SECTION
+===================== */
+.menu-section {
+  max-width: 900px;
+  margin: 40px auto;
+  background: #fff7ed; /* soft orange background */
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.menu-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.menu-card-vertical {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 14px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.menu-card-vertical:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+}
+
+.menu-card-vertical img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.menu-card-vertical h4 {
+  margin-bottom: 5px;
+  color: #1e293b;
+}
+
+.menu-card-vertical p {
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* =====================
+   CART SECTION
+===================== */
+#cartSection {
+  margin: 30px auto;
+  padding: 25px;
+  max-width: 500px;
+  background: #f0f9ff; /* soft blue background */
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+#cartSection h3 {
+  margin-bottom: 15px;
+  color: #1e293b;
+}
+
+#cartList li {
+  margin: 10px 0;
+  padding: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+.cart-btn {
+  margin-top: 10px;
+  padding: 12px 16px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cart-btn:hover {
+  background: #2563eb;
+}
+
+/* =====================
+   FORMS
+===================== */
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background: #fef6ff; /* soft purple background */
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1e293b;
+}
+
+.form-container input,
+.form-container select,
+.form-container textarea {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 16px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+}
+
+.form-container input:focus,
+.form-container select:focus,
+.form-container textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.form-container button {
+  width: 100%;
+  padding: 14px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form-container button:hover {
+  background: #2563eb;
+}
+
+/* =====================
+   LOGIN PAGE
+===================== */
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f0f4f8; /* soft background */
+}
+
+.login-card {
+  width: 400px;
+  background: #ffffff;
+  padding: 35px 30px;
+  border-radius: 20px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+  text-align: center;
+}
+
+.login-header img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.login-header h2 {
+  font-size: 22px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 25px;
+}
+
+.login-card input {
+  width: 100%;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 1px solid #cbd5e1;
+  font-size: 15px;
+}
+
+.login-card input:focus {
+  outline: none;
+  border-color: #3b82f6;
+}
+
+.login-card button {
+  width: 100%;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.login-card button:first-of-type {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.login-card button:first-of-type:hover {
+  background: #2563eb;
+}
+
+.guest-btn {
+  margin-top: 14px;
+  background: #10b981;
+  color: #fff;
+}
+
+.guest-btn:hover {
+  background: #059669;
+}
+
+.or-text {
+  margin: 18px 0;
+  font-weight: 500;
+  color: #64748b;
+}
+
+/* =====================
+   RESPONSIVE
+===================== */
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .menu-card-vertical {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .menu-card-vertical img {
+    margin-bottom: 10px;
+  }
+}
+
+.login-logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-box img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+
+.logo-box span {
+  font-size: 22px;
+  font-weight: bold;
+  color: #2563eb;
+}

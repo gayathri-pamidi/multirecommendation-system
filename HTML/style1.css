@@ -1,0 +1,6 @@
+.box {
+  border: 2px solid black;
+}
+.box:hover {
+  background-color: violet;
+}/*# sourceMappingURL=style1.css.map */

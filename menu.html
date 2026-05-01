@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Menu | rateX</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="logo-box">
+      <img src="images/ratex-logo.png" alt="RateX Logo">
+      <span>rateX</span>
+    </div>
+    <a href="index.html" class="add-btn">Home</a>
+  </nav>
+
+  <!-- MENU SECTION -->
+  <section class="menu-section">
+    <h2>📋 Menu</h2>
+    <div id="menuList" class="menu-vertical"></div>
+
+    <div id="cartSection">
+      <h3>🛒 Your Cart</h3>
+      <ul id="cartList"></ul>
+      <p><strong>Total:</strong> ₹<span id="cartTotal">0</span></p>
+      <button class="cart-btn" onclick="placeOrder()">Order Now</button>
+    </div>
+  </section>
+
+  <script src="main.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const businessId = params.get("id");
+    if (businessId) {
+      loadMenuPage(businessId);
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Event Handling</title>
+    <style>
+        .cla1{
+            height: 250px;
+            width: 250px;
+            background-color: rgb(111, 144, 196);
+            border:2px solid black;
+            text-align: center;
+            line-height: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="cla1" onmouseover="change1()" onmouseout="leave()">Hover Me👀👀👀</div>
+    <br>
+
+    <form action="">
+        Username:<input type='text' id="ip1" onfocus="_focus()" onblur="_blur()">
+    </form>
+
+    <script>
+        function change1(){
+            let v1 = document.querySelector(".cla1");
+            v1.style.backgroundColor = "pink";
+            v1.innerHTML = "You Hovered Me😁🤌🏻💞";
+        }
+        function leave(){
+            let v1 = document.querySelector(".cla1");
+            v1.style.backgroundColor = "yellow";
+            v1.innerHTML = "You Hovered out🥀😭💔";
+        }
+        function _focus(){
+            let v1 = document.querySelector("#ip1");
+            v1.style.backgroundColor = "green";
+            v1.style.color = "pink";
+        }
+        function _blur(){
+            let v1 = document.querySelector("#ip1");
+            v1.style.backgroundColor = "yellow";
+            v1.style.color = "grey";
+        }
+    </script>
+</body>
+</html>

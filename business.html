@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Business Details | rateX</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <h1 class="logo">rateX</h1>
+    <a href="add-business.html" class="add-btn">Add Business</a>
+  </nav>
+
+  <!-- BUSINESS DETAILS -->
+  <section class="business-detail">
+    <h2 id="businessName">Business Name</h2>
+    <img id="businessImage" src="" alt="Business Image" />
+
+    <p>📍 <span id="businessLocation"></span></p>
+    <p>📧 <span id="businessEmail"></span></p>
+    <p>📞 <span id="businessPhone"></span></p>
+    <p>🕒 <span id="businessHours"></span></p>
+    <p>⭐ <span id="businessRating"></span></p>
+    <p id="businessDesc"></p>
+    
+
+    <!-- View Menu Button -->
+    <a id="menuLink" class="cart-btn" style="display:inline-block; margin-top:20px;">📋 View Menu</a>
+  
+<div id="menuList"></div>
+
+  <script src="main.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const businessId = params.get("id");
+    if (businessId) {
+      loadBusinessDetails(businessId);
+      document.getElementById("menuLink").href = `menu.html?id=${businessId}`;
+    }
+  </script>
+
+<div id="businessList"></div>
+
+
+  <div
+    id="searchDropdown"
+    style="
+      position:absolute;
+      width:100%;
+      background:#fff;
+      border-radius:10px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      margin-top:8px;
+      display:none;
+      z-index:1000;
+    "
+  ></div>
+</div>
+
+  
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>DOM</title>
+</head>
+<body>
+    <!--Accessing elements-->
+   <h1 id = "ha1" class="cl1" >Vignan's University</h1>
+   <h2 id = "ha2" class="cl2">Deemed</h2>
+   <p id = "p1" class="clp">hiiiiiii</p>
+   <script>
+    let v1 = document.getElementById("ha2").innerHTML="helloooooooo";
+    let v2 = document.getElementsByClassName("cl")[0]; // if we use tagname and class mame to access,it can be accessed using index number 
+    let v3 = document.getElementsByTagName("h1")[0].innerText="hel";
+    let v4 = document.querySelector("h2");
+    console.log(v1);
+    console.log(v2);
+    console.log(v3);
+    console.log(v4);
+    document.writeln(v1);
+    //v1.innerText = " section 18";   //text is directly modifed , does not effect css , to change content innerText is used
+    //v1.getElementsByClassName()
+    //v1.getElementsByTagName() 
+    //v1.
+    document.writeln(v1.innerHTML="<u> hello 18</u>");
+   </script>
+</body>
+</html>

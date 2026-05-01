@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event handling in html</title>
+    <style>
+        .cal{
+            height: 150px;
+            width: 150px;
+            background-color: lightblue;
+            border: 2px solid black;
+            text-align: center;
+            line-height: 150px;
+            cursor: progress;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="cal" onmouseover="change1()" onmouseout="change2()">Hover Me</div> 
+    <form action="">
+        Username:<input type="text" id="ipl" onfocus="change3()" onblur="change4()">
+    </form>
+    <script>
+        function change1(){
+            let v1=document.querySelector(".cal");
+            v1.innerHTML="You hovered me😉😁";
+            v1.style.backgroundColor="red";
+        }
+        function change2(){
+            let v1=document.querySelector(".cal");
+            v1.innerHTML="You hovered out😤😒";
+            v1.style.backgroundColor="yellow";
+        }
+        function change3(){
+            let v1=document.querySelector("#ipl");
+            v1.style.backgroundColor='lightpink';
+            v1.style.color="lightblue";
+        }
+        function change4(){
+            let v1=document.querySelector("#ipl");
+            v1.style.backgroundColor='red';
+            v1.style.color="green";
+
+        }
+
+    </script>
+</body>
+</html>
+
+<!--Mouse events
+Keyboard events-keyup keydown
+key events-onblur
+windows events-alert -->

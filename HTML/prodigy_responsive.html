@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Interactive Navigation Menu</title>
+    
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Navbar Style */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: transparent;
+            padding: 15px 0;
+            transition: 0.4s ease;
+            z-index: 1000;
+        }
+
+        /* Navbar when scrolled */
+        nav.scrolled {
+            background-color: #222;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* Menu List */
+        ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+        }
+
+        ul li {
+            margin: 0 20px;
+        }
+
+        ul li a {
+            text-decoration: none;
+            color: black;
+            font-size: 18px;
+            transition: 0.3s;
+        }
+
+        /* Hover Effect */
+        ul li a:hover {
+            color: #ff6600;
+            font-size: 20px;
+        }
+
+        /* Change link color when navbar is scrolled */
+        nav.scrolled ul li a {
+            color: white;
+        }
+
+        /* Dummy content */
+        section {
+            height: 100vh;
+            padding-top: 100px;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .section1 { background: #f4f4f4; }
+        .section2 { background: #ddd; }
+        .section3 { background: #bbb; }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation Menu -->
+    <nav id="navbar">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Page Content -->
+    <section class="section1">Home Section</section>
+    <section class="section2">About Section</section>
+    <section class="section3">Contact Section</section>
+
+    <!-- JavaScript -->
+    <script>
+        window.addEventListener("scroll", function() {
+            var navbar = document.getElementById("navbar");
+            
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+    </script>
+
+</body>
+</html>

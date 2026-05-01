@@ -1,0 +1,8 @@
+$variable1: 20px;
+$variable2: violet;
+.box{
+    border:2px solid black;
+    &:hover{
+        background-color: $variable2;
+    }
+}

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Personal Life Coach Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+/* BODY & THEME */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(135deg, #0f2027, #2c5364);
+  color: white;
+  transition: 0.4s;
+}
+body.light {
+  background: #f5f7fa;
+  color: #222;
+}
+
+/* BUTTONS */
+button {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #ff7a18;
+  color: white;
+  cursor: pointer;
+  margin: 4px 0;
+}
+
+/* LANDING PAGE */
+.landing {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+/* APP LAYOUT */
+.app { display: none; }
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: rgba(0,0,0,.35);
+  padding: 20px;
+}
+.sidebar h3 { margin-bottom: 10px; }
+.sidebar button { width: 100%; }
+
+.main { margin-left: 220px; padding: 20px; }
+
+/* PAGES */
+.page { display: none; }
+.page.active { display: block; }
+
+/* HORIZONTAL SCROLL ROWS */
+.row {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;       /* horizontal scroll */
+  padding-bottom: 10px;
+  scroll-behavior: smooth;
+}
+.row::-webkit-scrollbar {
+  height: 8px;
+}
+.row::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.3);
+  border-radius: 4px;
+}
+.row::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+}
+
+/* CARDS */
+.card {
+  min-width: 280px;
+  flex: 0 0 auto;         /* keep width, prevent shrinking */
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,.4);
+}
+
+/* INPUTS */
+input, select {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0;
+  border: none;
+  border-radius: 8px;
+}
+
+/* INSIGHTS BOX */
+#insights {
+  background: white;
+  color: black;
+  padding: 15px;
+  border-radius: 12px;
+}
+canvas {
+  background: white;
+  border-radius: 12px;
+  padding: 10px;
+}
+
+/* HISTORY LIST */
+.list { max-height: 300px; overflow: auto; }
+
+/* BADGES */
+.badges {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+.badge {
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  background: rgba(255,255,255,0.2);
+}
+.badge.locked { opacity: 0.4; }
+.badge.bronze { background: #cd7f32; }
+.badge.silver { background: #c0c0c0; color: #000; }
+.badge.gold { background: #ffd700; color: #000; }
+.badge.diamond { background: #00e5ff; color: #000; }
+</style>
+</head>
+
+<body>
+
+<!-- LANDING PAGE -->
+<div class="landing" id="landing">
+  <h1>✨ Personal Life Coach</h1>
+  <p>Your daily intelligence dashboard</p>
+  <button onclick="startApp()">Get Started</button>
+</div>
+
+<!-- APP -->
+<div class="app" id="app">
+  <div class="sidebar">
+    <h3>📂 Menu</h3>
+    <button onclick="showPage('dashboard')">📊 Dashboard</button>
+    <button onclick="showPage('goals')">🎯 Goals</button>
+    <button onclick="showPage('history')">📈 History</button>
+    <button onclick="showPage('settings')">⚙️ Settings</button>
+  </div>
+
+  <div class="main">
+
+    <!-- DASHBOARD PAGE -->
+    <div class="page active" id="dashboard">
+      <h2>🌿 Dashboard</h2>
+      <div class="row">
+
+        <div class="card">
+          <h3>👤 Inputs</h3>
+          <input id="name" placeholder="Name">
+          <input id="sleep" type="number" placeholder="Sleep hours">
+          <input id="study" type="number" placeholder="Focus hours">
+          <input id="stress" type="number" placeholder="Stress (0-10)">
+          <select id="mood">
+            <option>Happy</option>
+            <option>Calm</option>
+            <option>Stressed</option>
+            <option>Tired</option>
+          </select>
+          <button onclick="analyze()">Generate Insights</button>
+        </div>
+
+        <div class="card">
+          <h3>⭐ Life Score</h3>
+          <div id="score" style="font-size:40px;">--</div>
+          <div id="streak" style="margin-top:10px;">🔥 Streak: 0 days</div>
+
+          <h4 style="margin-top:10px;">🏅 Badges</h4>
+          <div class="badges">
+            <div id="badge3" class="badge locked">🥉 3 Days</div>
+            <div id="badge7" class="badge locked">🥈 7 Days</div>
+            <div id="badge14" class="badge locked">🥇 14 Days</div>
+            <div id="badge30" class="badge locked">💎 30 Days</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>🧠 Insights</h3>
+          <div id="insights">Your personal suggestions will appear here.</div>
+        </div>
+
+        <div class="card">
+          <h3>📊 Performance</h3>
+          <canvas id="barChart"></canvas>
+        </div>
+
+        <div class="card">
+          <h3>🥧 Mood Chart</h3>
+          <canvas id="pieChart"></canvas>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- GOALS PAGE -->
+    <div class="page" id="goals">
+      <h2>🎯 Your Goals</h2>
+      <div class="row">
+        <div class="card">
+          <h3>Set Daily Goals</h3>
+          <input id="sleepGoal" type="number" placeholder="Sleep goal (hrs) e.g. 7">
+          <input id="studyGoal" type="number" placeholder="Study goal (hrs) e.g. 4">
+          <p>Go to dashboard → insights → track progress here ✅</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- HISTORY PAGE -->
+    <div class="page" id="history">
+      <h2>📈 History</h2>
+      <div class="row">
+        <div class="card">
+          <h3>📊 Score Trend</h3>
+          <canvas id="historyChart"></canvas>
+        </div>
+        <div class="card">
+          <h3>🗂️ Entries</h3>
+          <div class="list" id="historyList">No data yet.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SETTINGS PAGE -->
+    <div class="page" id="settings">
+      <h2>⚙️ Settings</h2>
+      <div class="card">
+        <button onclick="toggleTheme()">Toggle Theme</button>
+        <button onclick="clearData()">Clear All Data</button>
+        <p>Theme & data controls.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+/* APP START */
+function startApp(){
+  document.getElementById("landing").style.display="none";
+  document.getElementById("app").style.display="block";
+  updateStreakUI();
+  drawHistory();
+}
+
+/* THEME */
+function toggleTheme(){ document.body.classList.toggle("light"); }
+
+/* PAGE SWITCH */
+function showPage(pageId){
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+  document.getElementById(pageId).classList.add("active");
+  if(pageId==="history") drawHistory();
+}
+
+/* CLEAR DATA */
+function clearData(){
+  if(confirm("Clear all history data?")){
+    localStorage.removeItem("history");
+    localStorage.removeItem("lastDate");
+    localStorage.removeItem("streak");
+    updateStreakUI();
+    drawHistory();
+    alert("Data cleared!");
+  }
+}
+
+/* CHARTS */
+let barChart, pieChart, historyChart;
+
+function getHistory(){ return JSON.parse(localStorage.getItem("history") || "[]"); }
+function saveToday(entry){
+  let history = getHistory();
+  history.push(entry);
+  localStorage.setItem("history", JSON.stringify(history));
+}
+
+/* STREAK & BADGES */
+function updateStreakUI(){
+  let streak = Number(localStorage.getItem("streak") || 0);
+  document.getElementById("streak").innerText = "🔥 Streak: " + streak + " days";
+  updateBadges(streak);
+}
+
+function updateBadges(streak){
+  setBadge("badge3", streak >= 3, "bronze");
+  setBadge("badge7", streak >= 7, "silver");
+  setBadge("badge14", streak >= 14, "gold");
+  setBadge("badge30", streak >= 30, "diamond");
+}
+
+function setBadge(id, unlocked, type){
+  const el = document.getElementById(id);
+  if(unlocked){ el.classList.remove("locked"); el.classList.add(type); }
+  else { el.classList.add("locked"); }
+}
+
+function calculateStreak(todayStr){
+  let lastDate = localStorage.getItem("lastDate");
+  let streak = Number(localStorage.getItem("streak") || 0);
+
+  if(!lastDate) streak = 1;
+  else{
+    let last = new Date(lastDate);
+    let today = new Date(todayStr);
+    let diff = (today - last) / (1000*60*60*24);
+
+    if(diff === 1) streak += 1;
+    else if(diff === 0) {}
+    else streak = 1;
+  }
+  localStorage.setItem("streak", streak);
+  localStorage.setItem("lastDate", todayStr);
+  updateStreakUI();
+}
+
+/* ANALYZE INPUTS */
+function analyze(){
+  let name = document.getElementById("name").value || "Friend";
+  let sleep = Number(document.getElementById("sleep").value||0);
+  let study = Number(document.getElementById("study").value||0);
+  let stress = Number(document.getElementById("stress").value||0);
+  let mood = document.getElementById("mood").value;
+
+  let sleepGoal = Number(document.getElementById("sleepGoal").value||0);
+  let studyGoal = Number(document.getElementById("studyGoal").value||0);
+
+  let score = Math.min(100, sleep*5 + study*10 + (10-stress)*5);
+  document.getElementById("score").innerText = score;
+
+  let msg = `<b>Hey ${name}, today report:</b><br><br>`;
+
+  if(sleep < 6) msg += `😴 You slept <b>${sleep} hrs</b>. Try 7–8 hrs.<br><br>`;
+  else if(sleep <= 8) msg += `✅ You slept <b>${sleep} hrs</b>. Good!<br><br>`;
+  else msg += `🛌 You slept <b>${sleep} hrs</b>. Don’t oversleep daily.<br><br>`;
+
+  if(sleepGoal>0){
+    if(sleep>=sleepGoal) msg += `🎯 Sleep goal ${sleepGoal} hrs → Achieved! 🏆<br><br>`;
+    else msg += `🎯 Sleep goal ${sleepGoal} hrs → ${(sleepGoal-sleep).toFixed(1)} hrs short.<br><br>`;
+  }
+
+  if(study < 2) msg += `📚 Focus only <b>${study} hrs</b>. Try more.<br><br>`;
+  else if(study <= 5) msg += `🔥 Studied <b>${study} hrs</b>. Nice!<br><br>`;
+  else msg += `💪 Studied <b>${study} hrs</b>. Great!<br><br>`;
+
+  if(studyGoal>0){
+    if(study>=studyGoal) msg += `🎯 Study goal ${studyGoal} hrs → Achieved! 🏆<br><br>`;
+    else msg += `🎯 Study goal ${studyGoal} hrs → ${(studyGoal-study).toFixed(1)} hrs short.<br><br>`;
+  }
+
+  if(stress>=7) msg += `⚠️ Stress <b>${stress}</b>. Take breaks.<br><br>`;
+  else if(stress>=4) msg += `🙂 Stress <b>${stress}</b>. Manageable.<br><br>`;
+  else msg += `🌿 Stress <b>${stress}</b>. Great!<br><br>`;
+
+  msg += `🧠 Mood: <b>${mood}</b><br><br>`;
+
+  if(score>70) msg += `⭐ You’re doing really well today!`;
+  else if(score>40) msg += `👍 You’re okay. Improve sleep/focus.`;
+  else msg += `🚀 Start small tomorrow, you’ll improve.`;
+
+  document.getElementById("insights").innerHTML = msg;
+
+  if(barChart) barChart.destroy();
+  if(pieChart) pieChart.destroy();
+
+  barChart = new Chart(document.getElementById("barChart"),{
+    type:'bar',
+    data:{ labels:['Sleep','Focus','Stress'], datasets:[{data:[sleep,study,stress]}] }
+  });
+
+  pieChart = new Chart(document.getElementById("pieChart"),{
+    type:'pie',
+    data:{ labels:[mood,'Other'], datasets:[{data:[1,3]}] }
+  });
+
+  let todayStr = new Date().toISOString().slice(0,10);
+  saveToday({ date: todayStr, score, sleep, study, stress, mood });
+  calculateStreak(todayStr);
+}
+
+/* DRAW HISTORY */
+function drawHistory(){
+  let history = getHistory();
+  let listDiv = document.getElementById("historyList");
+
+  if(history.length===0) listDiv.innerHTML = "No data yet.";
+  else listDiv.innerHTML = history.map(h => `<div>📅 ${h.date} — ⭐ Score: ${h.score}</div>`).reverse().join("");
+
+  let labels = history.map(h => h.date);
+  let scores = history.map(h => h.score);
+
+  if(historyChart) historyChart.destroy();
+  if(document.getElementById("historyChart")){
+    historyChart = new Chart(document.getElementById("historyChart"),{
+      type:'line',
+      data:{ labels: labels, datasets:[{data: scores, fill:false}] }
+    });
+  }
+}
+</script>
+
+</body>
+</html>

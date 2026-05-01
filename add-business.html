@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Business – rateX</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <h1 class="logo">rateX</h1>
+  </nav>
+
+  <section class="form-container">
+    <h2>Add Your Business</h2>
+    <form id="businessForm">
+      <input type="text" id="businessName" placeholder="Business Name" required>
+      <select id="businessCategory" required>
+        <option value="">Select Category</option>
+        <option>Food</option>
+        <option>HealthCare</option>
+        <option>Entertainment</option>
+        <option>Grocery</option>
+        <option>Education</option>
+      </select>
+      <input type="text" id="businessLocation" placeholder="Location" required>
+      <input type="text" id="businessPhone" placeholder="Phone" required>
+      <input type="email" id="businessEmail" placeholder="Email" required>
+      <input type="text" id="businessHours" placeholder="Opening & Closing Time" required>
+      <input type="number" id="businessRating" placeholder="Rating (1 to 5)" min="1" max="5" required>
+      <textarea id="businessDesc" placeholder="Business Description" rows="4" required></textarea>
+      <textarea id="businessMenu" placeholder="Menu Items (comma separated)" rows="3" required></textarea>
+      <button type="submit">Submit Business</button>
+    </form>
+  </section>
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>🚁 Smart Drone Relief Loader</title>
+<style>
+body{
+    margin:0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg,#1f4037,#99f2c8);
+    color:white;
+    text-align:center;
+}
+
+h1{
+    margin-top:20px;
+}
+
+.container{
+    width:90%;
+    max-width:1000px;
+    margin:auto;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(15px);
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+}
+
+input{
+    padding:10px;
+    margin:8px;
+    border:none;
+    border-radius:8px;
+    width:150px;
+}
+
+button{
+    padding:10px 20px;
+    border:none;
+    border-radius:25px;
+    cursor:pointer;
+    margin:10px;
+    font-weight:bold;
+    transition:0.3s;
+}
+
+.add-btn{ background:#00c6ff; color:white;}
+.frac-btn{ background:#f7971e; color:white;}
+.zero-btn{ background:#ff416c; color:white;}
+
+button:hover{
+    transform:scale(1.1);
+}
+
+table{
+    width:100%;
+    margin-top:20px;
+    border-collapse:collapse;
+}
+
+th,td{
+    padding:10px;
+    border-bottom:1px solid rgba(255,255,255,0.3);
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:rgba(0,0,0,0.4);
+    border-radius:15px;
+    animation:fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
+</head>
+<body>
+
+<h1>🚁 Smart Disaster Relief Drone Loader</h1>
+
+<div class="container">
+
+<h3>Add Supply Item</h3>
+
+<input type="text" id="name" placeholder="Item Name">
+<input type="number" id="weight" placeholder="Weight (kg)">
+<input type="number" id="value" placeholder="Relief Value">
+<button class="add-btn" onclick="addItem()">Add Item</button>
+
+<br><br>
+
+<label>Drone Capacity (kg): </label>
+<input type="number" id="capacity" value="15">
+
+<table id="itemTable">
+<tr>
+<th>Item</th>
+<th>Weight</th>
+<th>Value</th>
+<th>Density</th>
+</tr>
+</table>
+
+<button class="frac-btn" onclick="runFractional()">Run Fractional</button>
+<button class="zero-btn" onclick="runZeroOne()">Run 0/1</button>
+
+<div id="output"></div>
+
+</div>
+
+<script>
+let items=[];
+
+function addItem(){
+    let name=document.getElementById("name").value;
+    let weight=parseFloat(document.getElementById("weight").value);
+    let value=parseFloat(document.getElementById("value").value);
+
+    if(!name || weight<=0 || value<=0){
+        alert("Enter valid data!");
+        return;
+    }
+
+    let density=(value/weight).toFixed(2);
+    items.push({name,weight,value,density});
+
+    let table=document.getElementById("itemTable");
+    table.innerHTML+=`
+    <tr>
+    <td>${name}</td>
+    <td>${weight}</td>
+    <td>${value}</td>
+    <td>${density}</td>
+    </tr>
+    `;
+
+    document.getElementById("name").value="";
+    document.getElementById("weight").value="";
+    document.getElementById("value").value="";
+}
+
+function runFractional(){
+    let capacity=parseFloat(document.getElementById("capacity").value);
+    let sorted=[...items].sort((a,b)=>b.value/b.weight - a.value/a.weight);
+
+    let remaining=capacity;
+    let totalValue=0;
+    let text="<div class='result'><h3>📦 Fractional Loading Result</h3>";
+
+    sorted.forEach(item=>{
+        if(remaining>0){
+            let fraction=Math.min(1,remaining/item.weight);
+            totalValue+=fraction*item.value;
+            remaining-=fraction*item.weight;
+            text+=`<p>${item.name} → ${(fraction*100).toFixed(0)}% loaded</p>`;
+        }
+    });
+
+    text+=`<h4>Total Value: ${totalValue.toFixed(2)}</h4>`;
+    text+=`<h4>Weight Used: ${(capacity-remaining).toFixed(2)} kg</h4></div>`;
+
+    document.getElementById("output").innerHTML=text;
+}
+
+function runZeroOne(){
+    let capacity=parseFloat(document.getElementById("capacity").value);
+    let n=items.length;
+    let maxValue=0;
+    let bestSet=[];
+
+    for(let i=0;i<(1<<n);i++){
+        let totalWeight=0;
+        let totalValue=0;
+        let selected=[];
+
+        for(let j=0;j<n;j++){
+            if(i&(1<<j)){
+                totalWeight+=items[j].weight;
+                totalValue+=items[j].value;
+                selected.push(items[j].name);
+            }
+        }
+
+        if(totalWeight<=capacity && totalValue>maxValue){
+            maxValue=totalValue;
+            bestSet=selected;
+        }
+    }
+
+    let text="<div class='result'><h3>🎯 0/1 Knapsack Result</h3>";
+    text+=`<p>Selected: ${bestSet.join(", ")}</p>`;
+    text+=`<h4>Total Value: ${maxValue}</h4></div>`;
+
+    document.getElementById("output").innerHTML=text;
+}
+</script>
+
+</body>
+</html>

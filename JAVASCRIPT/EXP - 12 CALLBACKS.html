@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //without callback
+        function f1(){
+            console.log(()=>{console.log("you entered class");},3000);
+        }
+        function f2(){
+            console.log(()=>{console.log("I opened the door");},2000);
+        }
+        function f3(){
+            console.log(()=>{console.log("I sat down in a bench");},4000);
+        }
+        //f1();
+        //f2();
+        //f3();
+        //f1(f2());
+        //f1(() => {})
+
+        f1(()=>{
+            f2(()=>{                    //to remove this we use promises
+                f3()                    // this is forming a stack and it is called call back hell  drawback :: this nested function is callback hell
+            })
+        })
+        
+        //using callback 
+        //function fun1(callback){
+        //    setTimeout(()=>{return 'callback("data")'},2000);
+        //}
+        //fun1(msg => {console.log(msg)});
+    </script>
+</body>
+</html>
